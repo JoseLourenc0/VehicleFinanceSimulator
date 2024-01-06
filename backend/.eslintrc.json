@@ -1,0 +1,29 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2023": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb-base"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+        "no-plusplus": "off",
+        "import/extensions": "off",
+        "import/prefer-default-export": "off",
+        "indent": ["error", 4],
+        "semi": ["error", "never"],
+        "max-len": "off",
+        "arrow-parens": "off",
+        "radix": "off",
+        "no-underscore-dangle": "off",
+        "max-classes-per-file": "off",
+        "no-case-declarations": "off",
+        "prefer-regex-literals": "off",
+        "no-console": "off",
+        "func-names" : "error"
+    }
+}
