@@ -11,3 +11,10 @@ export const log = (logInfo: any, type: 'default' | 'error' = 'default') => {
     if (type === 'error') console.error(header, logInfo)
     else console.log(header, logInfo)
 }
+
+export class UserException extends Error {
+    constructor(message: string) {
+        super(message)
+        this.name = 'UserException'
+    }
+}

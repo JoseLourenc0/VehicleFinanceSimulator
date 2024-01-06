@@ -1,15 +1,9 @@
 import bcrypt from 'bcrypt'
 import { Knex } from 'knex'
 import { knex } from '../database'
-
-interface User {
-  id: number
-  username: string
-  password: string
-  created_at: Date
-  updated_at: Date
-  deleted_at: Date | null
-}
+import { UserException } from '../utils'
+import { User } from '../models/user.model'
+import jwtService from './jwt.service'
 
 class UserService {
   private knex: Knex
@@ -28,17 +22,22 @@ class UserService {
     return bcrypt.compare(plainPassword, hashedPassword)
   }
 
-  async authenticateUser(username: string, password: string): Promise<boolean> {
+  async authenticateUser(username: string, password: string): Promise<string> {
     const user = await this.knex('users')
       .where({ username })
       .whereNull('deleted_at')
       .first()
-
+    
+      
     if (user && user.password) {
-      return this.comparePasswords(password, user.password)
+      const authenticated = this.comparePasswords(password, user.password)
+      if (!authenticated) throw new Error('Usuário ou senha incorretos')
+      
+      const token = jwtService.sign(user)
+      return token
     }
 
-    return false
+    throw new UserException('Usuário inválido ou inativo')
   }
 
   async getAllUsers(): Promise<User[]> {
