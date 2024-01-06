@@ -7,6 +7,7 @@ import jwtService from './jwt.service'
 
 class UserService {
   private knex: Knex
+
   private saltRounds: number
 
   constructor(knex: Knex) {
@@ -18,7 +19,10 @@ class UserService {
     return bcrypt.hash(password, this.saltRounds)
   }
 
-  private async comparePasswords(plainPassword: string, hashedPassword: string): Promise<boolean> {
+  private async comparePasswords(
+    plainPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
     return bcrypt.compare(plainPassword, hashedPassword)
   }
 
@@ -27,12 +31,11 @@ class UserService {
       .where({ username })
       .whereNull('deleted_at')
       .first()
-    
-      
+
     if (user && user.password) {
       const authenticated = this.comparePasswords(password, user.password)
-      if (!authenticated) throw new Error('Usuário ou senha incorretos')
-      
+      if (!authenticated) throw new UserException('Usuário ou senha incorretos')
+
       const token = jwtService.sign(user)
       return token
     }
@@ -41,16 +44,11 @@ class UserService {
   }
 
   async getAllUsers(): Promise<User[]> {
-    return this.knex('users')
-      .select('*')
-      .whereNull('deleted_at')
+    return this.knex('users').select('*').whereNull('deleted_at')
   }
 
   async getUserById(id: number): Promise<User | undefined> {
-    return this.knex('users')
-      .where({ id })
-      .whereNull('deleted_at')
-      .first()
+    return this.knex('users').where({ id }).whereNull('deleted_at').first()
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
@@ -60,21 +58,30 @@ class UserService {
       .first()
   }
 
-  async createUser(userData: Omit<User, 'id' | 'created_at' | 'updated_at' | 'deleted_at'>): Promise<number> {
+  async createUser(
+    userData: Omit<User, 'id' | 'created_at' | 'updated_at' | 'deleted_at'>,
+  ): Promise<number> {
     const hashedPassword = await this.hashPassword(userData.password)
 
-    const [id] = await this.knex('users').insert({
-      ...userData,
-      password: hashedPassword,
-    }, 'id')
+    const [id] = await this.knex('users').insert(
+      {
+        ...userData,
+        password: hashedPassword,
+      },
+      'id',
+    )
 
     return id as number
   }
 
-  async updateUser(id: number, userData: Omit<Partial<User>, 'id' | 'created_at' | 'updated_at' | 'deleted_at'>): Promise<number> {
-    return this.knex('users')
-      .where({ id })
-      .update(userData)
+  async updateUser(
+    id: number,
+    userData: Omit<
+      Partial<User>,
+      'id' | 'created_at' | 'updated_at' | 'deleted_at'
+    >,
+  ): Promise<number> {
+    return this.knex('users').where({ id }).update(userData)
   }
 
   async deleteUser(id: number): Promise<number> {

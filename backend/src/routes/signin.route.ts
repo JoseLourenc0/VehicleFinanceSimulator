@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { signInRoute } from "../middlewares/auth";
+import { Router } from 'express'
+import { signInRoute } from '../middlewares/auth'
 
 const signinRouter = Router()
 

@@ -1,6 +1,6 @@
-import { Request } from "express";
-import { User } from "./user.model";
+import { Request } from 'express'
+import { User } from './user.model'
 
 export interface UserRequest extends Request {
-    user: Partial<User>
+  user: Partial<User>
 }

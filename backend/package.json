@@ -10,7 +10,9 @@
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
     "test": "export NODE_ENV=test && npm run migrate && npm run seed && vitest",
-    "test:win": "set NODE_ENV=test&& npm run migrate && npm run seed && vitest"
+    "test:win": "set NODE_ENV=test&& npm run migrate && npm run seed && vitest",
+    "format": "prettier --write .",
+    "lint": "eslint ./src --ext .ts"
   },
   "keywords": [],
   "author": "",
@@ -33,9 +35,14 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/knex": "^0.16.1",
     "@types/node": "^20.10.6",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
+    "@typescript-eslint/eslint-plugin": "^6.18.0",
+    "@typescript-eslint/parser": "^6.18.0",
     "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.2",
+    "prettier": "^3.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "vitest": "^1.1.3"

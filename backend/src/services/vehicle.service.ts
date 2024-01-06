@@ -23,7 +23,7 @@ class VehicleService {
     if (!all) qb.whereNull('deleted_at')
     return qb
   }
-  
+
   async getAvailableVehicles(): Promise<Vehicle[]> {
     return this.getVehicles()
   }
@@ -36,17 +36,30 @@ class VehicleService {
     return this.knex('vehicles').where({ id }).first()
   }
 
-  async createVehicle(vehicleData: Omit<Vehicle, 'id' | 'created_at' | 'updated_at' | 'deleted_at'>): Promise<number> {
+  async createVehicle(
+    vehicleData: Omit<
+      Vehicle,
+      'id' | 'created_at' | 'updated_at' | 'deleted_at'
+    >,
+  ): Promise<number> {
     const [id] = await this.knex('vehicles').insert(vehicleData, 'id')
     return id as number
   }
 
-  async updateVehicle(id: number, vehicleData: Omit<Partial<Vehicle>, 'id' | 'created_at' | 'updated_at' | 'deleted_at'>): Promise<number> {
+  async updateVehicle(
+    id: number,
+    vehicleData: Omit<
+      Partial<Vehicle>,
+      'id' | 'created_at' | 'updated_at' | 'deleted_at'
+    >,
+  ): Promise<number> {
     return this.knex('vehicles').where({ id }).update(vehicleData)
   }
 
   async deleteVehicle(id: number): Promise<number> {
-    return this.knex('vehicles').where({ id }).update({ deleted_at: this.knex.fn.now() })
+    return this.knex('vehicles')
+      .where({ id })
+      .update({ deleted_at: this.knex.fn.now() })
   }
 }
 
