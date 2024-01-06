@@ -7,7 +7,7 @@ const {
 
 class JwtService {
 
-    private apiSecret
+    private apiSecret:string
 
     constructor() {
         this.apiSecret = API_SECRET || 'AP1_S3Cr3T'
