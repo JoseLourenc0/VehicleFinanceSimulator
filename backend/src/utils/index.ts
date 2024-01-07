@@ -21,3 +21,24 @@ export class UserException extends Error {
     this.name = 'UserException'
   }
 }
+
+export class CustomerException extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'CustomerException'
+  }
+}
+
+export class VehicleException extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'VehicleException'
+  }
+}
+
+export class SimulationException extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'SimulationException'
+  }
+}

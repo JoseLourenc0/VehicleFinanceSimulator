@@ -4,7 +4,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable('simulations', (table) => {
     table.bigIncrements('id').primary()
     table
-      .bigInteger('client_id')
+      .bigInteger('customer_id')
       .unsigned()
       .references('customers.id')
       .onDelete('CASCADE')

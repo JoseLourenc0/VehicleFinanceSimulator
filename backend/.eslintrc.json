@@ -32,6 +32,7 @@
     "no-shadow": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": "off",
     "prettier/prettier": [
       "error",
       {
