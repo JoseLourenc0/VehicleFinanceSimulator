@@ -1,31 +1,24 @@
 import { describe, expect, it } from 'vitest'
-import { randomUUID } from 'crypto'
 import simulationService from '../../src/services/simulation.service'
 import { newCustomer, newVehicle } from '../testUtils'
 
 describe('SimulationService', () => {
   it('should create a new simulation', async () => {
-    const newSimulationId = await simulationService.createSimulation({
+    const { id, accessKey, key } = await simulationService.createSimulation({
       customer_id: await newCustomer(),
       vehicle_id: await newVehicle(),
-      score: null,
-      processed: false,
-      key: randomUUID(),
-      access_key: randomUUID(),
     })
 
-    expect(newSimulationId).toBeDefined()
-    expect(typeof newSimulationId).toBe('number')
+    expect(id).toBeDefined()
+    expect(typeof id).toBe('number')
+    expect(typeof accessKey).toBe('string')
+    expect(typeof key).toBe('string')
   })
 
   it('should throw an error if customer_id is missing', async () => {
     await expect(
       simulationService.createSimulation({
         vehicle_id: await newVehicle(),
-        score: null,
-        processed: false,
-        key: randomUUID(),
-        access_key: randomUUID(),
         customer_id: 0,
       }),
     ).rejects.toThrow('CustomerId is required.')
@@ -35,33 +28,26 @@ describe('SimulationService', () => {
     await expect(
       simulationService.createSimulation({
         customer_id: await newCustomer(),
-        score: null,
-        processed: false,
-        key: randomUUID(),
-        access_key: randomUUID(),
         vehicle_id: 0,
       }),
     ).rejects.toThrow('VehicleId is required.')
   })
 
   it('should get simulation by key and access key', async () => {
-    await simulationService.createSimulation({
+    const { accessKey, key } = await simulationService.createSimulation({
       customer_id: await newCustomer(),
       vehicle_id: await newVehicle(),
-      score: null,
-      processed: false,
-      key: 'test_key',
-      access_key: 'test_access_key',
     })
 
-    const simulationData = await simulationService.getSimulationByKey(
-      'test_key',
-      'test_access_key',
+    const { id, processed, score } = await simulationService.getSimulationByKey(
+      key,
+      accessKey,
     )
 
-    expect(simulationData).toBeDefined()
-    expect(simulationData.key).toBe('test_key')
-    expect(simulationData.access_key.includes('$2b$')).toBe(true)
+    expect(id).toBeDefined()
+    expect(typeof id).toBe('number')
+    expect(processed).toBe(0)
+    expect(score).toBeNull()
   })
 
   it('should throw an error if key or access key is missing', async () => {
@@ -84,17 +70,13 @@ describe('SimulationService', () => {
   })
 
   it('should throw an error if access key does not match', async () => {
-    await simulationService.createSimulation({
+    const { accessKey, key } = await simulationService.createSimulation({
       customer_id: await newCustomer(),
       vehicle_id: await newVehicle(),
-      score: null,
-      processed: false,
-      key: 'test_key',
-      access_key: 'test_access_key',
     })
 
     await expect(
-      simulationService.getSimulationByKey('test_key', 'wrong_access_key'),
+      simulationService.getSimulationByKey(key, `wrong_${accessKey}`),
     ).rejects.toThrow('Simulação não pode ser acessada')
   })
 })

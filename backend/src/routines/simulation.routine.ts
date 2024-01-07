@@ -27,7 +27,9 @@ class SimulationRoutine {
         })
       }
 
-      log('Rotina executada com sucesso.')
+      log(
+        `Rotina executada com sucesso. Registros atualizados: ${unprocessedSimulations.length}`,
+      )
     } catch (error) {
       log(['Erro ao executar a rotina:', (error as Error).message], 'error')
     }

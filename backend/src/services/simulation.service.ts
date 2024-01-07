@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable camelcase */
 import bcrypt from 'bcrypt'
 import { Knex } from 'knex'
+import { randomUUID } from 'crypto'
 import { knex } from '../database'
 import { Simulation } from '../models/simulation.model'
 import { SimulationException } from '../utils'
@@ -36,11 +39,11 @@ class SimulationService {
       .first()
   }
 
-  async getSimulationByKey(key: string, accessKey: string) {
+  async getSimulationByKey(key: string, accessKey: string, allFields = false) {
     if (!key || !accessKey)
       throw new SimulationException('Necessário informar dados corretamente')
 
-    const data = await this.knex('simulations')
+    const data: Simulation = await this.knex('simulations')
       .where({ key })
       .whereNull('deleted_at')
       .first()
@@ -50,15 +53,26 @@ class SimulationService {
     if (!compare)
       throw new SimulationException('Simulação não pode ser acessada')
 
-    return data
+    if (allFields) return data
+
+    const { access_key: access_keyF, key: keyF, ...fData } = data
+
+    return fData
   }
 
   async createSimulation(
     simulationData: Omit<
       Simulation,
-      'id' | 'created_at' | 'updated_at' | 'deleted_at'
+      | 'id'
+      | 'created_at'
+      | 'updated_at'
+      | 'deleted_at'
+      | 'key'
+      | 'access_key'
+      | 'score'
+      | 'processed'
     >,
-  ): Promise<number> {
+  ): Promise<{ id: number; accessKey: string; key: string }> {
     // Verifica se userId ou customerId está presente
     if (!simulationData.customer_id) {
       throw new SimulationException('CustomerId is required.')
@@ -68,14 +82,17 @@ class SimulationService {
       throw new SimulationException('VehicleId is required.')
     }
 
-    const hash = await this.hashAccessKey(simulationData.access_key)
+    const accessKey = randomUUID()
+    const key = randomUUID()
+
+    const hash = await this.hashAccessKey(accessKey)
 
     const [id] = await this.knex('simulations').insert(
-      { ...simulationData, access_key: hash },
+      { ...simulationData, access_key: hash, key },
       'id',
     )
 
-    return id as number
+    return { id, accessKey, key }
   }
 
   async updateSimulation(

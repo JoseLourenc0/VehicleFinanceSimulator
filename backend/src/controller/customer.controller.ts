@@ -1,7 +1,11 @@
 import { Request, Response } from 'express'
-import { log } from 'console'
 import customerService from '../services/customer.service'
-import { RouteException, formatTimestamps, handleErrorMessages } from '../utils'
+import {
+  RouteException,
+  formatTimestamps,
+  handleErrorMessages,
+  log,
+} from '../utils'
 
 const customerController = {
   getAll: async (req: Request, res: Response) => {

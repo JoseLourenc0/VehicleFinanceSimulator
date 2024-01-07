@@ -3,7 +3,7 @@ import { describe, it, expect, vitest } from 'vitest'
 import { randomUUID } from 'crypto'
 import { app } from '../../src/http'
 import customerService from '../../src/services/customer.service'
-import { getToken, newCustomer, newVehicle } from '../testUtils'
+import { getToken, newCustomer } from '../testUtils'
 
 describe('/customers', () => {
   describe('GET - /', () => {
@@ -31,14 +31,14 @@ describe('/customers', () => {
   })
 
   describe('GET - /:id', () => {
-    it('Should get a vehicle by ID', async () => {
+    it('Should get a customer by ID', async () => {
       const customer = await newCustomer()
       const response = await supertest(app).get(`/customers/${customer}`)
       expect(response.status).toBe(200)
       expect(response.body).toBeDefined()
     })
 
-    it('Should handle error when fetching vehicle by ID', async () => {
+    it('Should handle error when fetching customer by ID', async () => {
       vitest
         .spyOn(customerService, 'getCustomerById')
         .mockRejectedValueOnce(new Error('Simulated error'))
@@ -82,23 +82,23 @@ describe('/customers', () => {
 
   describe('DELETE - /:id', () => {
     it('Should return forbidden when not authenticated', async () => {
-      const vehicle = await newVehicle()
-      const response = await supertest(app).delete(`/customers/${vehicle}`)
+      const customer = await newCustomer()
+      const response = await supertest(app).delete(`/customers/${customer}`)
 
       expect(response.status).toBe(403)
     })
 
-    it('Should delete a vehicle by ID', async () => {
+    it('Should delete a customer by ID', async () => {
       const token = await getToken()
-      const vehicle = await newVehicle()
+      const customer = await newCustomer()
       const response = await supertest(app)
-        .delete(`/customers/${vehicle}`)
+        .delete(`/customers/${customer}`)
         .set('Authorization', token)
 
       expect(response.status).toBe(204)
     })
 
-    it('Should handle error when deleting a vehicle by invalid ID', async () => {
+    it('Should handle error when deleting a customer by invalid ID', async () => {
       const token = await getToken()
       const response = await supertest(app)
         .delete('/customers/invalid_id')
