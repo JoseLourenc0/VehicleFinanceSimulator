@@ -15,6 +15,7 @@ services:
       - ./backend/package-lock.json:/code/package-lock.json
     networks:
       - private
+      - public
     depends_on:
       - db
 
@@ -30,7 +31,22 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
     ports:
-       - "3306:3306"
+      - "3306:3306"
+
+  frontend:
+    build:
+      context: frontend
+      target: development
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend/src:/code/src
+      - /code/node_modules
+    networks:
+      - public
+    depends_on:
+      - backend
 
 networks:
   private:
+  public:
