@@ -1,15 +1,6 @@
 import { Knex } from 'knex'
 import { knex } from '../database'
-
-interface Vehicle {
-  id: number
-  model: string
-  brand: string
-  color: string
-  created_at: Date
-  updated_at: Date
-  deleted_at: Date | null
-}
+import { Vehicle } from '../models/vehicle.model'
 
 class VehicleService {
   private knex: Knex
@@ -18,7 +9,7 @@ class VehicleService {
     this.knex = knex
   }
 
-  private async getVehicles(all = false): Promise<Vehicle[]> {
+  private async getVehicles(all = false): Promise<any> {
     const qb = this.knex('vehicles').select('*')
     if (!all) qb.whereNull('deleted_at')
     return qb
@@ -33,7 +24,7 @@ class VehicleService {
   }
 
   async getVehicleById(id: number): Promise<Vehicle | undefined> {
-    return this.knex('vehicles').where({ id }).first()
+    return this.knex('vehicles').where({ id }).whereNull('deleted_at').first()
   }
 
   async createVehicle(

@@ -29,7 +29,7 @@ class SimulationRoutine {
 
       log('Rotina executada com sucesso.')
     } catch (error) {
-      log(['Erro ao executar a rotina:', error.message], 'error')
+      log(['Erro ao executar a rotina:', (error as Error).message], 'error')
     }
   }
 }
