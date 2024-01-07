@@ -81,7 +81,7 @@ class SimulationService {
   async updateSimulation(
     id: number,
     simulationData: Omit<
-      Simulation,
+      Partial<Simulation>,
       'id' | 'created_at' | 'updated_at' | 'deleted_at'
     >,
   ): Promise<number> {

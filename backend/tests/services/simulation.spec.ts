@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { randomUUID } from 'crypto'
 import simulationService from '../../src/services/simulation.service'
 import { newCustomer, newVehicle } from '../testUtils'
 
@@ -9,8 +10,8 @@ describe('SimulationService', () => {
       vehicle_id: await newVehicle(),
       score: null,
       processed: false,
-      key: 'some_key',
-      access_key: 'some_access_key',
+      key: randomUUID(),
+      access_key: randomUUID(),
     })
 
     expect(newSimulationId).toBeDefined()
@@ -23,8 +24,8 @@ describe('SimulationService', () => {
         vehicle_id: await newVehicle(),
         score: null,
         processed: false,
-        key: 'some_key',
-        access_key: 'some_access_key',
+        key: randomUUID(),
+        access_key: randomUUID(),
         customer_id: 0,
       }),
     ).rejects.toThrow('CustomerId is required.')
@@ -36,8 +37,8 @@ describe('SimulationService', () => {
         customer_id: await newCustomer(),
         score: null,
         processed: false,
-        key: 'some_key',
-        access_key: 'some_access_key',
+        key: randomUUID(),
+        access_key: randomUUID(),
         vehicle_id: 0,
       }),
     ).rejects.toThrow('VehicleId is required.')
