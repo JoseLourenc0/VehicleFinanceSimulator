@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "rimraf ./dist && tsc",
-    "start": "node ./dist/index",
+    "start": "node ./dist/src/index",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
     "test": "export NODE_ENV=test && npm run migrate && npm run seed && vitest",
