@@ -1,10 +1,13 @@
+import { SnackBarProvider } from '@contexts/SnackBar'
 import Routes from './routes'
 
 function App() {
 
   return (
     <div className="App">
-      <Routes />
+      <SnackBarProvider>
+        <Routes />
+      </SnackBarProvider>
     </div>
   )
 }

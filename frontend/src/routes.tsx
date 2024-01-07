@@ -1,7 +1,9 @@
 import { useEffect } from "react"
 import { RouteObject, RouterProvider, createBrowserRouter, useNavigate } from "react-router-dom"
-import CustomerLayout from "./pages/customer/CustomerLayout"
-import AppLayout from "./pages/app/AppLayout"
+import CustomerLayout from "@pages/customer/CustomerLayout"
+import AppLayout from "@pages/app/AppLayout"
+import CustomerMain from "@pages/customer/main/CustomerMain"
+import ListVehicles from "@pages/customer/main/ListVehicles"
 
 const RedirectToApp = () => {
     const navigate = useNavigate()
@@ -14,7 +16,17 @@ const RedirectToApp = () => {
 const routes: RouteObject[] = [
     {
         path: '/',
-        element: <CustomerLayout />
+        element: <CustomerMain />
+    },
+    {
+        path: '/discover',
+        element: <CustomerLayout />,
+        children: [
+            {
+                path: '',
+                element: <ListVehicles />
+            }
+        ]
     },
     {
         path: '/app',
