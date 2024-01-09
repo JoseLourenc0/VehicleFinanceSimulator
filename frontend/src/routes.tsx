@@ -5,6 +5,7 @@ import AppLayout from "@pages/app/AppLayout"
 import CustomerMain from "@pages/customer/main/CustomerMain"
 import ListVehicles from "@pages/customer/main/ListVehicles"
 import VerifySimulation from "@pages/customer/main/VerifySimulation"
+import SignInPage from "@pages/app/SignInPage"
 
 const RedirectToApp = () => {
     const navigate = useNavigate()
@@ -36,6 +37,10 @@ const routes: RouteObject[] = [
     {
         path: '/app',
         element: <AppLayout />
+    },
+    {
+        path: '/sign-in',
+        element: <SignInPage />
     },
     {
         path: '*',
