@@ -11,7 +11,7 @@ import { Box, CircularProgress, Typography } from '@mui/material'
 import { SnackBarContext } from '@contexts/SnackBar'
 import { getCustomerByCPF, regCustomer, regSimulation } from '@services/customer'
 import { Customer } from '@models/customer.model'
-import { urlOnRoute, waitTimeInSeconds } from '@services/utils'
+import { urlOnRoute, validateCPF, validateEmail, validatePhoneNumber, waitTimeInSeconds } from '@services/utils'
 import InputClipboard from '@components/InputClipboard'
 import QRCode from 'qrcode.react'
 
@@ -80,9 +80,14 @@ const SimulationCard = (props: { vehicle: Vehicle }) => {
         const [cpf, name, email, phone] = [data.get('cpf'), data.get('name'), data.get('email'), data.get('phone')]
         if (!name && !email && !phone) {
             if (!cpf) return errorSnack('Necessário informar o CPF para continuar')
+            if (!validateCPF(cpf as string)) return errorSnack('CPF inválido!')
             return getCustomerByCPFOnReq(cpf as string)
         }
         if (!name || !email || !phone || !cpf) return errorSnack('Necessário informar todos os campos para prosseguir')
+        if (!validateCPF(cpf as string)) return errorSnack('CPF inválido!')
+        if (!validateEmail(email as string)) return errorSnack('E-mail inválido!')
+        if (!validatePhoneNumber(phone as string)) return errorSnack('Telefone inválido!')
+
         submitSimulacao({ cpf, name, email, phone })
     }
 

@@ -1,6 +1,7 @@
 import RadialBarChart from "@components/RadialBarChart"
 import { Simulation } from "@models/Simulation.model"
 import { Box, Grid, Typography } from "@mui/material"
+import GhostCar from '@assets/images/ghost.png'
 
 const SimulationProcessed = (props: { simulation: Simulation }) => {
 
@@ -44,7 +45,7 @@ const SimulationProcessed = (props: { simulation: Simulation }) => {
                 </Grid>
                 <Grid item xs={12} sm={4} md={4} lg={4}>
                     <img
-                        src="https://source.unsplash.com/random?cars"
+                        src={vehicle?.image || GhostCar}
                         alt={vehicle?.brand + ' ' + vehicle?.model}
                         style={{ maxWidth: '400px', maxHeight: '400px', width: '100%', height: 'auto', objectFit: 'cover' }}
                     />
