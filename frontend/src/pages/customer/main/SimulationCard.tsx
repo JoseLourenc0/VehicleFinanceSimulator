@@ -103,7 +103,7 @@ const SimulationCard = (props: { vehicle: Vehicle }) => {
                     }
                     {isLoading && <CircularProgress />}
                     {
-                        !customerData && (
+                        !customerData && !simulationFinished && (
                             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                                 <TextField
                                     hidden={searchedByCPF && customerAlready}
@@ -117,7 +117,7 @@ const SimulationCard = (props: { vehicle: Vehicle }) => {
                                     autoFocus
                                 />
                                 {
-                                    searchedByCPF && !customerAlready && !simulationFinished && (
+                                    searchedByCPF && !customerAlready && (
                                         <>
                                             <TextField
                                                 margin="normal"

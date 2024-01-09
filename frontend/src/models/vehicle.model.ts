@@ -1,8 +1,9 @@
 export interface Vehicle {
   id: number
   brand: string
-  color: string
   model: string
+  color: string
+  image?: string
   createdAt: Date
   updatedAt: Date
 }

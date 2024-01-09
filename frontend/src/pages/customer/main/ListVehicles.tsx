@@ -11,6 +11,7 @@ import { Vehicle } from 'models/vehicle.model';
 import { SnackBarContext } from '@contexts/SnackBar';
 import { SpinnerContext } from '@contexts/Spinner';
 import SimulationCard from './SimulationCard';
+import GhostCar from '@assets/images/ghost.png'
 
 export default function ListVehicles() {
 
@@ -53,7 +54,7 @@ export default function ListVehicles() {
                                     sx={{
                                         pt: '56.25%',
                                     }}
-                                    image="https://source.unsplash.com/random?cars"
+                                    image={vehicle.image || GhostCar}
                                 />
                                 <CardContent sx={{ flexGrow: 1 }}>
                                     <Typography gutterBottom variant="h5" component="h2">
