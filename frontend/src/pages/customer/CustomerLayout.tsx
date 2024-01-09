@@ -11,7 +11,7 @@ const CustomerLayout = () => {
         <>
             <ThemeProvider theme={defaultTheme}>
                 <CssBaseline />
-                <main style={{ backgroundColor: 'rgb(236, 237, 242)', height: '100vh' }}>
+                <main style={{ backgroundColor: 'rgb(236, 237, 242)', minHeight: '100vh' }}>
                     <SpinnerProvider>
                         <Outlet />
                         <Box sx={{ p: 6 }} component="footer">

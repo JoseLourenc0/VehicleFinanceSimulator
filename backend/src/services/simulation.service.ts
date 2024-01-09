@@ -28,19 +28,19 @@ class SimulationService {
     {
       min: 600,
       max: 800,
-      title: 'Reprovado',
+      title: '50% de entrada, 25% do comprometimento da renda',
       text: 'Excelente trabalho! Seu histórico de crédito abriu as portas para uma oferta vantajosa de financiamento de carro. Não deixe essa oportunidade escapar. Entre em contato conosco agora para finalizar o acordo e começar a desfrutar do seu novo veículo."',
     },
     {
       min: 800,
       max: 950,
-      title: 'Reprovado',
+      title: '30% de entrada, 20% do comprometimento da renda',
       text: 'Parabéns pela conquista! Seu notável score resultou em uma oferta ainda mais vantajosa para o financiamento do seu próximo carro. Não perca tempo, feche o acordo hoje mesmo. Entre em contato conosco para finalizar os detalhes e começar a dirigir com estilo.',
     },
     {
       min: 950,
       max: 1000,
-      title: 'Reprovado',
+      title: '100% de financiamento, taxa zero',
       text: 'Incrível! Seu excepcional score abriu as portas para uma oferta exclusiva. Aproveite esta oportunidade única e entre em contato conosco agora para fechar o acordo. Adquira o carro dos seus sonhos sem preocupações financeiras. Estamos ansiosos para recebê-lo na família de proprietários satisfeitos.',
     },
   ]

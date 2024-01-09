@@ -40,7 +40,7 @@ describe('UserService', () => {
     })
 
     const updateResult = await userService.updateUser(newUser, {
-      username: userName + '_new',
+      username: `${userName}_new`,
     })
 
     expect(updateResult).toBe(1)
@@ -63,7 +63,6 @@ describe('UserService', () => {
       username: userName,
       password: 'secure_password',
     })
-    console.log({ newUser })
 
     const token = await userService.authenticateUser(
       userName,

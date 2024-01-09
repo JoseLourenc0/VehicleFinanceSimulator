@@ -26,7 +26,6 @@ const SimulationCard = (props: { vehicle: Vehicle }) => {
     const [urlToSearch, setUrlToSearch] = useState<string>()
 
     useEffect(() => {
-        console.log('CAIU NO EFFECT', customerData)
         if (customerData) submitSimulacao({})
     }, [customerData])
 

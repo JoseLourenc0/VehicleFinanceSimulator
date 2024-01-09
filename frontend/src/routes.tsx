@@ -4,6 +4,7 @@ import CustomerLayout from "@pages/customer/CustomerLayout"
 import AppLayout from "@pages/app/AppLayout"
 import CustomerMain from "@pages/customer/main/CustomerMain"
 import ListVehicles from "@pages/customer/main/ListVehicles"
+import VerifySimulation from "@pages/customer/main/VerifySimulation"
 
 const RedirectToApp = () => {
     const navigate = useNavigate()
@@ -25,6 +26,10 @@ const routes: RouteObject[] = [
             {
                 path: '',
                 element: <ListVehicles />
+            },
+            {
+                path: ':key/:accessKey',
+                element: <VerifySimulation />
             }
         ]
     },

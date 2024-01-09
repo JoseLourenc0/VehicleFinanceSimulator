@@ -7,7 +7,7 @@ const CustomerMain = () => {
     const navigate = useNavigate()
 
     return (
-        <Container maxWidth='xl' style={{ padding: 0, height: '100vh' }}>
+        <Container maxWidth='xl' style={{ padding: 0, height: '100vh', maxWidth: '100%' }}>
             <Grid container style={{ height: '100%' }}>
                 <Grid item xs={12} sm={6}>
                     <Box
