@@ -12,6 +12,7 @@ export default defineConfig({
       "@components": path.resolve("./src/components"),
       "@pages": path.resolve("./src/pages"),
       "@contexts": path.resolve("./src/contexts"),
+      "@models": path.resolve("./src/models"),
     },
   },
 })

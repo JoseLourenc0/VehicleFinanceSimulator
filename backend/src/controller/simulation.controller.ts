@@ -53,6 +53,7 @@ const simulationController = {
           ...simulation,
           customer: formatTimestamps(customer),
           vehicle: formatTimestamps(vehicle),
+          plan: simulationService.getPlan(simulation.score),
         }),
       )
     } catch (error) {

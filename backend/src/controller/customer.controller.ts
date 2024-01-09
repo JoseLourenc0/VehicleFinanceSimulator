@@ -42,6 +42,22 @@ const customerController = {
       })
     }
   },
+  getByCPF: async (req: Request, res: Response) => {
+    try {
+      const { cpf } = req.params
+      if (!cpf) throw new RouteException('Necessário informar cpf do cliente')
+
+      const customer = await customerService.getCustomerByCPF(cpf)
+      if (!customer) throw new RouteException('Cliente não encontrado')
+
+      res.send(formatTimestamps(customer))
+    } catch (error) {
+      log(error, 'error')
+      res.status(400).send({
+        error: handleErrorMessages(error, 'Falha ao buscar dados do cliente'),
+      })
+    }
+  },
   create: async (req: Request, res: Response) => {
     try {
       const { name, email, cpf, phone } = req.body

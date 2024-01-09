@@ -17,6 +17,10 @@ class CustomerService {
     return this.knex('customers').where({ id }).whereNull('deleted_at').first()
   }
 
+  async getCustomerByCPF(cpf: string): Promise<Customer | undefined> {
+    return this.knex('customers').where({ cpf }).whereNull('deleted_at').first()
+  }
+
   async createCustomer(
     customerData: Omit<
       Customer,

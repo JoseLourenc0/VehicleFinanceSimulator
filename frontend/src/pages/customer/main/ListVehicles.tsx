@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -10,18 +9,23 @@ import { useContext, useEffect, useState } from 'react';
 import { getAvailableVehicles } from '@services/customer';
 import { Vehicle } from 'models/vehicle.model';
 import { SnackBarContext } from '@contexts/SnackBar';
+import { SpinnerContext } from '@contexts/Spinner';
+import SimulationCard from './SimulationCard';
 
 export default function ListVehicles() {
 
     const [vehicles, setVehicles] = useState<Vehicle[]>([])
     const { errorSnack } = useContext(SnackBarContext)
+    const { show, dismiss } = useContext(SpinnerContext)
 
     useEffect(() => {
         fetchVehicles()
     }, [])
 
     const fetchVehicles = async () => {
+        show()
         const { data, error } = await getAvailableVehicles()
+        dismiss()
         if (error) {
             errorSnack(typeof error === 'string' ? error : error.toString())
             return
@@ -33,6 +37,11 @@ export default function ListVehicles() {
     return (
         <>
             <Container sx={{ py: 8 }} maxWidth="md">
+                <Grid item xs={12} style={{ marginBottom: '16px' }}>
+                    <Typography variant="body1">
+                        Bem-vindo à nossa seleção de veículos! Escolha o carro que se encaixa perfeitamente no seu estilo de vida.
+                    </Typography>
+                </Grid>
                 <Grid container spacing={4}>
                     {vehicles.length && vehicles.map((vehicle) => (
                         <Grid item key={vehicle.id} xs={12} sm={6} md={4}>
@@ -55,7 +64,7 @@ export default function ListVehicles() {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button>Simular Empréstimo</Button>
+                                    <SimulationCard vehicle={vehicle} />
                                 </CardActions>
                             </Card>
                         </Grid>
