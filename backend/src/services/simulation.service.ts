@@ -6,6 +6,8 @@ import { randomUUID } from 'crypto'
 import { knex } from '../database'
 import { Simulation } from '../models/simulation.model'
 import { SimulationException } from '../utils'
+import { Vehicle } from '../models/vehicle.model'
+import { Customer } from '../models/customer.model'
 
 class SimulationService {
   private knex: Knex
@@ -70,6 +72,24 @@ class SimulationService {
 
   async getAllSimulations(): Promise<Simulation[]> {
     return this.knex('simulations').select('*').whereNull('deleted_at')
+  }
+
+  getVehiclesBySimulationIds(
+    ids: number[],
+  ): Promise<(Vehicle & { simulationId: number })[]> {
+    return this.knex('vehicles')
+      .join('simulations', 'vehicles.id', '=', 'simulations.vehicle_id')
+      .whereIn('simulations.id', ids)
+      .select('simulations.id as simulationId', 'vehicles.*')
+  }
+
+  getCustomersBySimulationIds(
+    ids: number[],
+  ): Promise<(Customer & { simulationId: number })[]> {
+    return this.knex('customers')
+      .join('simulations', 'customers.id', '=', 'simulations.vehicle_id')
+      .whereIn('simulations.id', ids)
+      .select('simulations.id as simulationId', 'customers.*')
   }
 
   async getSimulationById(id: number): Promise<Simulation | undefined> {

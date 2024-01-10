@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { Request, Response } from 'express'
 import simulationService from '../services/simulation.service'
 import {
@@ -13,9 +14,29 @@ const simulationController = {
   getAll: async (req: Request, res: Response) => {
     try {
       const simulations = await simulationService.getAllSimulations()
+
+      const idList = simulations.map((e) => e.id)
+
+      const vehicles =
+        await simulationService.getVehiclesBySimulationIds(idList)
+
+      const customers =
+        await simulationService.getCustomersBySimulationIds(idList)
+
+      simulations.forEach((simulation) => {
+        const vehicle = vehicles.find((e) => e.simulationId === simulation.id)
+        delete vehicle?.simulationId
+        simulation.vehicle = vehicle
+
+        const customer = customers.find((e) => e.simulationId === simulation.id)
+        delete customer?.simulationId
+        simulation.customer = customer
+      })
+
       const formatedSimulations = simulations.map((simulation) =>
         formatTimestamps(simulation),
       )
+
       res.send({
         simulations: formatedSimulations,
       })

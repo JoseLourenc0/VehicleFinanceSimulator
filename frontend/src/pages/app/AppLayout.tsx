@@ -121,7 +121,7 @@ const AppLayout = () => {
                                     </Paper>
                                 </Grid>
                             </Grid>
-                            <Copyright />
+                            <Copyright sx={{ pt: 4 }} />
                         </Container>
                     </Box>
                 </Box>

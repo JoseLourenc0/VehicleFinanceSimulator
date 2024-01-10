@@ -48,7 +48,7 @@ const VehiclesPage = () => {
         const { data, error } = await getVehicles()
         dismiss()
 
-        if (!data || error) return errorSnack((error as any).toString() || 'Falha ao buscar clientes')
+        if (!data || error) return errorSnack((error as any).toString() || 'Falha ao buscar veículos')
         formatVehiclesGrid(data)
     }
 
