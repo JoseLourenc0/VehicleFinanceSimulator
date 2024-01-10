@@ -9,17 +9,17 @@ import PeopleIcon from '@mui/icons-material/People'
 
 const pagesList: { route: string, icon: JSX.Element, label: string }[] = [
   {
-    route: '/app/customers',
+    route: 'customers',
     label: 'Clientes',
     icon: <PeopleIcon />
   },
   {
-    route: '/app/vehicles',
+    route: 'vehicles',
     label: 'Veículos',
     icon: <DirectionsCarIcon />
   },
   {
-    route: '/app/simulations',
+    route: 'simulations',
     label: 'Simulações',
     icon: <TrendingUpIcon />
   },

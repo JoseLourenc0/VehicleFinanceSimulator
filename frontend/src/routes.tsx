@@ -7,6 +7,7 @@ import ListVehicles from "@pages/customer/main/ListVehicles"
 import VerifySimulation from "@pages/customer/main/VerifySimulation"
 import SignInPage from "@pages/app/SignInPage"
 import CustomersPage from "@pages/app/CustomersPage"
+import VehiclesPage from "@pages/app/VehiclesPage"
 
 const RedirectTo = (props: { path?: string }) => {
     const navigate = useNavigate()
@@ -48,6 +49,10 @@ const routes: RouteObject[] = [
             {
                 path: 'customers',
                 element: <CustomersPage />
+            },
+            {
+                path: 'vehicles',
+                element: <VehiclesPage />
             },
             {
                 path: '*',
