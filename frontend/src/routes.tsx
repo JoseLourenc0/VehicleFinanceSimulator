@@ -6,14 +6,17 @@ import CustomerMain from "@pages/customer/main/CustomerMain"
 import ListVehicles from "@pages/customer/main/ListVehicles"
 import VerifySimulation from "@pages/customer/main/VerifySimulation"
 import SignInPage from "@pages/app/SignInPage"
+import CustomersPage from "@pages/app/CustomersPage"
 
-const RedirectToApp = () => {
+const RedirectTo = (props: { path?: string }) => {
     const navigate = useNavigate()
     useEffect(() => {
-        navigate('/')
+        navigate(props.path || '/')
     }, [])
     return <></>
 }
+
+const RedirectToApp = () => <RedirectTo />
 
 const routes: RouteObject[] = [
     {
@@ -36,7 +39,21 @@ const routes: RouteObject[] = [
     },
     {
         path: '/app',
-        element: <AppLayout />
+        element: <AppLayout />,
+        children: [
+            {
+                path: '',
+                element: <CustomersPage />
+            },
+            {
+                path: 'customers',
+                element: <CustomersPage />
+            },
+            {
+                path: '*',
+                element: <RedirectTo path="/app/customers" />
+            },
+        ]
     },
     {
         path: '/sign-in',

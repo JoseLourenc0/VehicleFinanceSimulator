@@ -13,7 +13,7 @@ interface IAuthContext {
 const AuthContext = createContext<IAuthContext>({} as IAuthContext)
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [signed, setSigned] = useState<boolean>(false)
+    const [signed, setSigned] = useState<boolean>(true)
     const [error, setError] = useState<string>('')
     const { errorSnack, successSnack } = useContext(SnackBarContext)
 
@@ -33,6 +33,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
     const signOut = () => {
         localStorage.clear()
+        setSigned(false)
     }
 
     return <AuthContext.Provider value={{

@@ -39,7 +39,7 @@ const SignInForm = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                marginTop: '75%',
+                marginTop: '50%',
                 transform: 'translateY(-50%)'
             }}
         >
