@@ -2,7 +2,7 @@
 import axios, { AxiosError } from "axios"
 
 const apiURL = import.meta.env.PROD
-  ? "undefinedUrlUntilNow"
+  ? import.meta.env.VITE_API_URL
   : "http://localhost:3000"
 
 const getHeaders = () => {
