@@ -8,12 +8,13 @@ import { AuthContext } from "@contexts/auth"
 const defaultTheme = createTheme()
 
 const SignInPage = () => {
-    const { signed } = useContext(AuthContext)
+    const { madeAuthentication } = useContext(AuthContext)
+    const token = localStorage.getItem('user_token')
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (signed) navigate('/app')
-    }, [signed])
+        if (madeAuthentication || token) navigate('/app')
+    }, [madeAuthentication])
 
     return (
         <ThemeProvider theme={defaultTheme}>

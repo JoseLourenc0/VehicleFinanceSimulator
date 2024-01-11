@@ -47,7 +47,7 @@ const SimulationProcessed = (props: { simulation: Simulation }) => {
                     <img
                         src={vehicle?.image || GhostCar}
                         alt={vehicle?.brand + ' ' + vehicle?.model}
-                        style={{ maxWidth: '400px', maxHeight: '400px', width: '100%', height: 'auto', objectFit: 'cover' }}
+                        style={{ maxWidth: '400px', maxHeight: '400px', width: '100%', height: 'auto', objectFit: 'cover', borderRadius: '4px' }}
                     />
                 </Grid>
             </Grid>

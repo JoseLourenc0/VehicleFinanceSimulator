@@ -49,7 +49,8 @@ const RadialBarChart = (props: { valInPercentage: number, intervals: number[], c
                     name: {
                         show: true,
                         fontSize: '30px',
-                        offsetY: 10
+                        offsetY: 10,
+                        color: '#383838de'
                     },
                     value: {
                         fontSize: "30px",

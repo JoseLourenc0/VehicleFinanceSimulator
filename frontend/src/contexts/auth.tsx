@@ -5,6 +5,7 @@ import { waitTimeInSeconds } from '@services/utils'
 
 interface IAuthContext {
     signed: boolean,
+    madeAuthentication: boolean,
     signIn(username: string, password: string): Promise<void>,
     error: string,
     signOut(): void
@@ -14,6 +15,7 @@ const AuthContext = createContext<IAuthContext>({} as IAuthContext)
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [signed, setSigned] = useState<boolean>(true)
+    const [madeAuthentication, setMadeAuthentication] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
     const { errorSnack, successSnack } = useContext(SnackBarContext)
 
@@ -22,6 +24,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         if (token) {
             localStorage.setItem('user_token', token)
             setSigned(true)
+            setMadeAuthentication(true)
             successSnack('Sucesso ao realizar login')
             await waitTimeInSeconds(2)
         } else {
@@ -40,7 +43,8 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         signed,
         signIn,
         signOut,
-        error
+        error,
+        madeAuthentication
     }}>
         {children}
     </AuthContext.Provider>

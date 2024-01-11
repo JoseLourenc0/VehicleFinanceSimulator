@@ -31,7 +31,7 @@ if (!import.meta.env.TEST) {
     (response) => response,
     async (error: AxiosError) => {
       if (
-        error?.response?.status === 401 &&
+        error?.response?.status === 403 &&
         !error?.response?.request?.responseURL.includes("sign-in")
       ) {
         localStorage.clear()
