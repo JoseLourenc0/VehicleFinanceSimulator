@@ -31,3 +31,15 @@ export const getSimulations = async () => {
     return { error }
   }
 }
+
+export const createVehicle = async (vehicle: Partial<Vehicle>) => {
+  try {
+    const { data } = await baseAPI.post<{ vehicle: number }>(
+      "/vehicles",
+      vehicle
+    )
+    return { data: data.vehicle }
+  } catch (error) {
+    return { error }
+  }
+}

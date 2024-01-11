@@ -11,11 +11,12 @@ import moment from "moment"
 import ImageIcon from '@mui/icons-material/Image';
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import VehicleForm from "./components/VehicleForm"
 
 const VehiclesPage = () => {
 
     const [vehiclesGrid, setVehiclesGrid] = useState<{ cols: GridColDef[], rows: Vehicle[] }>()
-    const { dismiss, show } = useContext(SpinnerContext)
+    const { dismiss, show, visible } = useContext(SpinnerContext)
     const { errorSnack } = useContext(SnackBarContext)
 
     useEffect(() => {
@@ -52,9 +53,16 @@ const VehiclesPage = () => {
         formatVehiclesGrid(data)
     }
 
+    const createdNewVehicle = () => {
+        fetchVehicles()
+    }
+
     return (
         <>
             <Title>Veículos</Title>
+            {!visible && <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '8px 0' }}>
+                <VehicleForm updated={createdNewVehicle} />
+            </div>}
             {vehiclesGrid && <CustomDataGrid rows={vehiclesGrid?.rows} cols={vehiclesGrid?.cols} />}
         </>
     )

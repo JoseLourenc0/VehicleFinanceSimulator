@@ -44,7 +44,7 @@ const vehicleController = {
   },
   create: async (req: Request, res: Response) => {
     try {
-      const { brand, color, model } = req.body
+      const { brand, color, model, image } = req.body
 
       if (!brand || !color || !model)
         throw new RouteException(
@@ -55,6 +55,7 @@ const vehicleController = {
         brand,
         color,
         model,
+        image,
       })
 
       res.send({
