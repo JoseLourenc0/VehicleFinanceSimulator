@@ -21,12 +21,12 @@ const CustomerMain = () => {
                         <Container maxWidth="sm">
                             <Typography
                                 component="h1"
-                                variant="h2"
+                                variant="h3"
                                 align="center"
                                 color="text.primary"
                                 gutterBottom
                             >
-                                Descubra a Variedade de Veículos
+                                Parcelas que cabem no seu bolso
                             </Typography>
                             <Typography variant="h5" align="center" color="text.secondary" paragraph>
                                 Explore nossa seleção de veículos disponíveis para simulação de financiamento. Conheça modelos, marcas e cores diferentes, e descubra as opções de pagamento que se encaixam perfeitamente nas suas necessidades. Encontre o carro dos seus sonhos com facilidade e simplicidade.

@@ -12,12 +12,24 @@ import { SnackBarContext } from '@contexts/SnackBar';
 import { SpinnerContext } from '@contexts/Spinner';
 import SimulationCard from './SimulationCard';
 import GhostCar from '@assets/images/ghost.png'
+import MainWallpaper from '@assets/images/main_wallpaper.png'
+import { Button } from '@mui/material';
+import './ListVehicles.css'
 
 export default function ListVehicles() {
 
     const [vehicles, setVehicles] = useState<Vehicle[]>([])
     const { errorSnack } = useContext(SnackBarContext)
     const { show, dismiss } = useContext(SpinnerContext)
+    let divRef: HTMLDivElement
+
+    const scrollToDiv = () => {
+        const divOffsetTop = divRef.offsetTop;
+        window.scrollTo({
+            top: divOffsetTop,
+            behavior: 'smooth',
+        });
+    };
 
     useEffect(() => {
         fetchVehicles()
@@ -37,10 +49,13 @@ export default function ListVehicles() {
 
     return (
         <>
+            <img src={MainWallpaper} alt="MainWallpaper" style={{ backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', maxWidth: '100%' }} />
+            <Button variant="contained" onClick={scrollToDiv} className='scroll-button'>Conhecer veículos</Button>
             <Container sx={{ py: 8 }} maxWidth="md">
-                <Grid item xs={12} style={{ marginBottom: '16px' }}>
+                <Grid ref={ref => ref ? divRef = ref : null} item xs={12} style={{ marginBottom: '16px' }}>
                     <Typography variant="body1">
-                        Bem-vindo à nossa seleção de veículos! Escolha o carro que se encaixa perfeitamente no seu estilo de vida.
+                        Comece sua jornada rumo ao carro dos sonhos agora.
+                        <br />Explore nossa seleção e descubra a combinação perfeita para você!
                     </Typography>
                 </Grid>
                 <Grid container spacing={4}>

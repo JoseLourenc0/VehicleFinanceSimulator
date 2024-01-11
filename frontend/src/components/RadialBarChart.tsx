@@ -1,6 +1,7 @@
+import { Typography } from "@mui/material";
 import ReactApexChart from "react-apexcharts"
 
-const RadialBarChart = (props: { valInPercentage: number, intervals: number[], colors: string[], name: string }) => {
+const RadialBarChart = (props: { title: string, valInPercentage: number, intervals: number[], colors: string[], name: string }) => {
 
     const findNearestValues = () => {
         const { intervals, valInPercentage } = props
@@ -50,7 +51,7 @@ const RadialBarChart = (props: { valInPercentage: number, intervals: number[], c
                         show: true,
                         fontSize: '30px',
                         offsetY: 10,
-                        color: '#383838de'
+                        color: '#fff'
                     },
                     value: {
                         fontSize: "30px",
@@ -75,6 +76,9 @@ const RadialBarChart = (props: { valInPercentage: number, intervals: number[], c
     }
     return (
         <div id="chart" style={{ maxWidth: '400px' }}>
+            <Typography align="center">
+                {props.title}
+            </Typography>
             <ReactApexChart options={options} series={options.series} type="radialBar" />
         </div>
     )

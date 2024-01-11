@@ -15,10 +15,8 @@ const SimulationProcessed = (props: { simulation: Simulation }) => {
         <Box display='flex' justifyContent='center' textAlign='center' flexDirection='column' gap='2px'>
             <Grid container spacing={3} alignItems="center" justifyContent="center">
                 <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <Typography align="center">
-                        Sua pontuação obtida foi
-                    </Typography>
                     <RadialBarChart
+                        title="Sua pontuação"
                         intervals={[1 / 1000, 3 / 10, 6 / 10, 8 / 10, 1]}
                         colors={['#FF0000', '#FFA500', '#FFFF00', '#008000', '#0000FF']}
                         name="scoreChart"

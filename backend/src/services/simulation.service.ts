@@ -31,7 +31,7 @@ class SimulationService {
       min: 600,
       max: 800,
       title: '50% de entrada, 25% do comprometimento da renda',
-      text: 'Excelente trabalho! Seu histórico de crédito abriu as portas para uma oferta vantajosa de financiamento de carro. Não deixe essa oportunidade escapar. Entre em contato conosco agora para finalizar o acordo e começar a desfrutar do seu novo veículo."',
+      text: 'Excelente trabalho! Seu histórico de crédito abriu as portas para uma oferta vantajosa de financiamento de carro. Não deixe essa oportunidade escapar. Entre em contato conosco agora para finalizar o acordo e começar a desfrutar do seu novo veículo.',
     },
     {
       min: 800,
