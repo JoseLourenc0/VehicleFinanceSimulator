@@ -8,17 +8,27 @@ import { GridColDef } from "@mui/x-data-grid"
 import { getCustomers } from "@services/app"
 import moment from "moment"
 import { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 
 const CustomersPage = () => {
 
     const [customersGrid, setCustomersGrid] = useState<{ cols: GridColDef[], rows: Customer[] }>()
     const { dismiss, show } = useContext(SpinnerContext)
     const { errorSnack } = useContext(SnackBarContext)
+    const [searchParams] = useSearchParams()
 
     useEffect(() => {
         fetchCustomers()
     }, [])
+
+    const filterCustomer = (data: Customer[]) => {
+        const customerId = Number(searchParams.get('customer'))
+
+        return data.filter(customer => {
+            if (customerId && customer.id !== customerId) return false
+            return true
+        })
+    }
 
     const formatCustomersGrid = (customers: Customer[]) => {
         const cols: GridColDef[] = [
@@ -46,7 +56,7 @@ const CustomersPage = () => {
         dismiss()
 
         if (!data || error) return errorSnack((error as any).toString() || 'Falha ao buscar clientes')
-        formatCustomersGrid(data)
+        formatCustomersGrid(filterCustomer(data))
     }
 
     return (

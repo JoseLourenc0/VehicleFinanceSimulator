@@ -11,6 +11,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Simulation } from "@models/Simulation.model"
 import { useSearchParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const SimulationsPage = () => {
 
@@ -37,8 +38,18 @@ const SimulationsPage = () => {
     const formatSimulationsGrid = (simulations: Simulation[]) => {
         const cols: GridColDef[] = [
             { field: 'id', headerName: 'ID', flex: 1 },
-            { field: 'customer', headerName: 'Cliente', flex: 1, renderCell: ({ row }) => row.customer?.name },
-            { field: 'vehicle', headerName: 'Veículo', flex: 1, renderCell: ({ row }) => row.vehicle?.model },
+            {
+                field: 'customer', headerName: 'Cliente', renderCell: params =>
+                    <Link to={`/app/customers?customer=${params.row.customer?.id}`}>
+                        {params.row.customer?.name}
+                    </Link>
+            },
+            {
+                field: 'vehicle', headerName: 'Veículo', renderCell: params =>
+                    <Link to={`/app/vehicles?vehicle=${params.row.vehicle?.id}`}>
+                        {params.row.vehicle?.model}
+                    </Link>
+            },
             { field: 'score', headerName: 'Score', flex: 1, },
             { field: 'processed', headerName: 'Processado', flex: 1, renderCell: ({ row }) => row.processed ? <DoneIcon /> : <ClearIcon /> },
             { field: 'createdAt', headerName: 'Criado em', flex: 1, renderCell: params => moment(params.row.dateCreated).format('DD/MM/YYYY HH:mm:ss') },

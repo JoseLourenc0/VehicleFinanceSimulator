@@ -10,7 +10,7 @@ import { getVehicles } from "@services/app"
 import moment from "moment"
 import ImageIcon from '@mui/icons-material/Image';
 import { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import VehicleForm from "./components/VehicleForm"
 
 const VehiclesPage = () => {
@@ -18,10 +18,20 @@ const VehiclesPage = () => {
     const [vehiclesGrid, setVehiclesGrid] = useState<{ cols: GridColDef[], rows: Vehicle[] }>()
     const { dismiss, show, visible } = useContext(SpinnerContext)
     const { errorSnack } = useContext(SnackBarContext)
+    const [searchParams] = useSearchParams()
 
     useEffect(() => {
         fetchVehicles()
     }, [])
+
+    const filterVehicle = (data: Vehicle[]) => {
+        const vehicleId = Number(searchParams.get('vehicle'))
+
+        return data.filter(customer => {
+            if (vehicleId && customer.id !== vehicleId) return false
+            return true
+        })
+    }
 
     const formatVehiclesGrid = (vehicles: Vehicle[]) => {
         const cols: GridColDef[] = [
@@ -56,7 +66,7 @@ const VehiclesPage = () => {
         dismiss()
 
         if (!data || error) return errorSnack((error as any).toString() || 'Falha ao buscar veículos')
-        formatVehiclesGrid(data)
+        formatVehiclesGrid(filterVehicle(data))
     }
 
     const createdNewVehicle = () => {
