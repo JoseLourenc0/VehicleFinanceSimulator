@@ -37,6 +37,12 @@ const VehiclesPage = () => {
                         </IconButton>
                     </Link>
             },
+            {
+                field: 'simulations', headerName: 'Simulações', renderCell: params =>
+                    <Link to={`/app/simulations?vehicle=${params.row.id}`}>
+                        {params.row.simulations}
+                    </Link>
+            },
             { field: 'createdAt', headerName: 'Criado em', flex: 1, renderCell: params => moment(params.row.dateCreated).format('DD/MM/YYYY HH:mm:ss') },
         ]
 

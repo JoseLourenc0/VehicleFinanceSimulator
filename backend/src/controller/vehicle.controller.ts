@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { Request, Response } from 'express'
 import {
   RouteException,
@@ -6,11 +7,20 @@ import {
   log,
 } from '../utils'
 import vehicleService from '../services/vehicle.service'
+import simulationService from '../services/simulation.service'
 
 const vehicleController = {
   getAll: async (req: Request, res: Response) => {
     try {
       const vehicles = await vehicleService.getAvailableVehicles()
+      const simulationsByVehicle =
+        await simulationService.getSimulationsGroupedBy('vehicle_id')
+      vehicles.forEach((vehicle) => {
+        const simulations = simulationsByVehicle.find(
+          (simulation) => simulation.vehicle_id === vehicle.id,
+        )
+        if (simulations) vehicle.simulations = simulations.total_simulations
+      })
       const formatedVehicles = vehicles.map((vehicle) =>
         formatTimestamps(vehicle),
       )

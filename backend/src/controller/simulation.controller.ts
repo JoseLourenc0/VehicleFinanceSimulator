@@ -24,11 +24,11 @@ const simulationController = {
         await simulationService.getCustomersBySimulationIds(idList)
 
       simulations.forEach((simulation) => {
-        const vehicle = vehicles.find((e) => e.simulationId === simulation.id)
+        const vehicle = vehicles.find((e) => e.id === simulation.vehicle_id)
         delete vehicle?.simulationId
         simulation.vehicle = vehicle
 
-        const customer = customers.find((e) => e.simulationId === simulation.id)
+        const customer = customers.find((e) => e.id === simulation.customer_id)
         delete customer?.simulationId
         simulation.customer = customer
       })

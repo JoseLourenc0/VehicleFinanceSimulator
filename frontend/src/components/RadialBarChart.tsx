@@ -35,7 +35,7 @@ const RadialBarChart = (props: { title: string, valInPercentage: number, interva
             height: 280,
             type: "radialBar",
         },
-        series: [67],
+        series: [props.valInPercentage * 100],
         colors: [mainColor],
         plotOptions: {
             radialBar: {

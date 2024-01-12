@@ -4,6 +4,7 @@ export interface Customer {
   email: string
   cpf: string
   phone: string
+  simulations?: number
   createdAt: Date
   updatedAt: Date
 }

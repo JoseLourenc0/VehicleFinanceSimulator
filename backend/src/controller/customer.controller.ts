@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { Request, Response } from 'express'
 import customerService from '../services/customer.service'
 import {
@@ -6,14 +7,24 @@ import {
   handleErrorMessages,
   log,
 } from '../utils'
+import simulationService from '../services/simulation.service'
 
 const customerController = {
   getAll: async (req: Request, res: Response) => {
     try {
       const customers = await customerService.getAllCustomers()
+      const simulationsByUser =
+        await simulationService.getSimulationsGroupedBy('customer_id')
+      customers.forEach((customer) => {
+        const simulations = simulationsByUser.find(
+          (simulation) => simulation.customer_id === customer.id,
+        )
+        if (simulations) customer.simulations = simulations.total_simulations
+      })
       const formatedCustomers = customers.map((vehicle) =>
         formatTimestamps(vehicle),
       )
+      console.log({ simulationsByUser })
       res.send({
         customers: formatedCustomers,
       })

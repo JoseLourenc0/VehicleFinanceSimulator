@@ -10,16 +10,29 @@ import { useContext, useEffect, useState } from "react"
 import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Simulation } from "@models/Simulation.model"
+import { useSearchParams } from "react-router-dom"
 
 const SimulationsPage = () => {
 
     const [simulationsGrid, setSimulationsGrid] = useState<{ cols: GridColDef[], rows: Simulation[] }>()
     const { dismiss, show } = useContext(SpinnerContext)
     const { errorSnack } = useContext(SnackBarContext)
+    const [searchParams] = useSearchParams()
 
     useEffect(() => {
         fetchSimulations()
     }, [])
+
+    const filterVehicleCustomer = (data: Simulation[]) => {
+        const vehicleId = Number(searchParams.get('vehicle'))
+        const customerId = Number(searchParams.get('customer'))
+
+        return data.filter(simulation => {
+            if (vehicleId && simulation.vehicle?.id !== vehicleId) return false
+            if (customerId && simulation.customer?.id !== customerId) return false
+            return true
+        })
+    }
 
     const formatSimulationsGrid = (simulations: Simulation[]) => {
         const cols: GridColDef[] = [
@@ -41,7 +54,7 @@ const SimulationsPage = () => {
         dismiss()
 
         if (!data || error) return errorSnack((error as any).toString() || 'Falha ao buscar simulações')
-        formatSimulationsGrid(data)
+        formatSimulationsGrid(filterVehicleCustomer(data))
     }
 
     return (

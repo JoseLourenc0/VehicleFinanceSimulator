@@ -4,6 +4,7 @@ export interface Vehicle {
   model: string
   color: string
   image?: string
+  simulations?: number
   createdAt: Date
   updatedAt: Date
 }

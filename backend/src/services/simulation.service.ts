@@ -74,13 +74,20 @@ class SimulationService {
     return this.knex('simulations').select('*').whereNull('deleted_at')
   }
 
+  getSimulationsGroupedBy(groupBy: 'customer_id' | 'vehicle_id') {
+    return this.knex('simulations')
+      .select(groupBy)
+      .count('id as total_simulations')
+      .groupBy(groupBy)
+  }
+
   getVehiclesBySimulationIds(
     ids: number[],
   ): Promise<(Vehicle & { simulationId: number })[]> {
     return this.knex('vehicles')
       .join('simulations', 'vehicles.id', '=', 'simulations.vehicle_id')
       .whereIn('simulations.id', ids)
-      .select('simulations.id as simulationId', 'vehicles.*')
+      .select('vehicles.*')
   }
 
   getCustomersBySimulationIds(
@@ -89,7 +96,7 @@ class SimulationService {
     return this.knex('customers')
       .join('simulations', 'customers.id', '=', 'simulations.vehicle_id')
       .whereIn('simulations.id', ids)
-      .select('simulations.id as simulationId', 'customers.*')
+      .select('customers.*')
   }
 
   async getSimulationById(id: number): Promise<Simulation | undefined> {

@@ -8,6 +8,7 @@ import { GridColDef } from "@mui/x-data-grid"
 import { getCustomers } from "@services/app"
 import moment from "moment"
 import { useContext, useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 const CustomersPage = () => {
 
@@ -26,6 +27,12 @@ const CustomersPage = () => {
             { field: 'email', headerName: 'E-mail', flex: 1 },
             { field: 'cpf', headerName: 'CPF', flex: 1 },
             { field: 'phone', headerName: 'Telefone', flex: 1 },
+            {
+                field: 'simulations', headerName: 'Simulações', renderCell: params =>
+                    <Link to={`/app/simulations?customer=${params.row.id}`}>
+                        {params.row.simulations}
+                    </Link>
+            },
             { field: 'createdAt', headerName: 'Criado em', flex: 1, renderCell: params => moment(params.row.dateCreated).format('DD/MM/YYYY HH:mm:ss') },
         ]
 
