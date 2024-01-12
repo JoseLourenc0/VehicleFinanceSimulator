@@ -4,7 +4,7 @@ import Link from '@mui/material/Link'
 
 export function Copyright(props: any) {
     return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        <Typography variant="body2" color="#ffe" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit" href="https://github.com/joselourenc0">
                 José Lourenço

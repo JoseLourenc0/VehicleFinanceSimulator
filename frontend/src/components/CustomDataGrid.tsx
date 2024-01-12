@@ -41,7 +41,7 @@ const CustomDataGrid: (props: { rows: GridRowsProp, cols: GridColDef[] }) => JSX
                 <DataGrid
                     apiRef={apiRef}
                     disableColumnFilter
-                    disableColumnSelector
+                    // disableColumnSelector
                     disableDensitySelector
                     rows={rows}
                     columns={cols}

@@ -49,9 +49,11 @@ export default function ListVehicles() {
 
     return (
         <>
-            <img src={MainWallpaper} alt="MainWallpaper" style={{ backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', maxWidth: '100%' }} />
+            <div style={{ overflowX: 'hidden' }}>
+                <img src={MainWallpaper} alt="MainWallpaper" id='MainWallpaper' />
+            </div>
             <Button variant="contained" onClick={scrollToDiv} className='scroll-button'>Conhecer veículos</Button>
-            <Container sx={{ py: 8 }} maxWidth="md">
+            <Container sx={{ py: 4 }} maxWidth="md">
                 <Grid ref={ref => ref ? divRef = ref : null} item xs={12} style={{ marginBottom: '16px' }}>
                     <Typography variant="body1">
                         Comece sua jornada rumo ao carro dos sonhos agora.
