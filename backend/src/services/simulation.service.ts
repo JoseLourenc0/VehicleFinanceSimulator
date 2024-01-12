@@ -94,7 +94,7 @@ class SimulationService {
     ids: number[],
   ): Promise<(Customer & { simulationId: number })[]> {
     return this.knex('customers')
-      .join('simulations', 'customers.id', '=', 'simulations.vehicle_id')
+      .join('simulations', 'customers.id', '=', 'simulations.customer_id')
       .whereIn('simulations.id', ids)
       .select('customers.*')
   }
